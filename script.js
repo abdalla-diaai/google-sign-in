@@ -9,17 +9,28 @@ function parseJwt (token) {
 }
 
 function decodeJwtResponse(data){
+    console.log(parseJwt(data))
     signIn(parseJwt(data))
 }
-function handleCredentialResponse(response) {
-    // decodeJwtResponse() is a custom function defined by you
-    // to decode the credential response.
-    const responsePayload = decodeJwtResponse(response.credential);
 
-    console.log("ID: " + responsePayload.sub);
-    console.log('Full Name: ' + responsePayload.name);
-    console.log('Given Name: ' + responsePayload.given_name);
-    console.log('Family Name: ' + responsePayload.family_name);
-    console.log("Image URL: " + responsePayload.picture);
-    console.log("Email: " + responsePayload.email);
- }
+function signIn(payload) {
+    // Example: Store user information in local storage
+    localStorage.setItem('user', JSON.stringify({
+        id: payload.sub,
+        fullName: payload.name,
+        givenName: payload.given_name,
+        familyName: payload.family_name,
+        imageUrl: payload.picture,
+        email: payload.email
+    }))
+    // Example: Update the UI to show the user is signed in
+    document.getElementById('user-info').innerHTML = `
+        <img src="${payload.picture}" alt="User Image" />
+        <h2>${payload.name}</h2>
+        <p>${payload.email}</p>
+    `
+};
+
+    
+
+
