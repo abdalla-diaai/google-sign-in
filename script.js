@@ -31,9 +31,7 @@ function signIn(payload) {
     })
   );
 
-
   window.location.href = "home.html";
-   
 }
 
 function decodeJwtResponse(data) {
@@ -45,3 +43,5 @@ function handleCredentialResponse(response) {
   //   console.log(response);
   decodeJwtResponse(response.credential);
 }
+
+
